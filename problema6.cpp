@@ -4,28 +4,24 @@
 
 using namespace std;
 
-// Function to process each dataset
 int process_dataset(int N, int S, int Q, vector<vector<int>>& queues) {
     int total_time = 0;
-    vector<deque<int>> platform_queues(N); // Platform queues (B) for each station
-    deque<int> transport; // Transporter stack
-    int current_station = 0; // Start at station 1 (0-indexed)
+    vector<deque<int>> platform_queues(N); 
+    deque<int> transport; 
+    int current_station = 0; 
 
     // Process each station
     for (int station = 0; station < N; ++station) {
-        // Move to the next station if not already there
         int target_station = (station + current_station) % N;
         int move_steps = (target_station >= current_station) ? (target_station - current_station) : (N - current_station + target_station);
         total_time += move_steps * 2; // 2 minutes per step
 
-        // Load the transport from the current station's queue
         while (!queues[station].empty() && transport.size() < S) {
             transport.push_back(queues[station].front());
             queues[station].erase(queues[station].begin());
             total_time++; // Loading time
         }
 
-        // Unload the transport at the current station
         int unload_time = 0;
         while (!transport.empty()) {
             int cargo = transport.back();
@@ -39,9 +35,8 @@ int process_dataset(int N, int S, int Q, vector<vector<int>>& queues) {
                 }
             }
         }
-        total_time += unload_time; // Unloading time
+        total_time += unload_time; 
 
-        // Update current station
         current_station = (station + 1) % N;
     }
 
@@ -61,7 +56,6 @@ int main() {
 
         vector<vector<int>> queues(N);
 
-        // Read each station's queue
         for (int i = 0; i < N; ++i) {
             int Qi;
             cin >> Qi;
