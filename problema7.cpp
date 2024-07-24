@@ -92,7 +92,7 @@ int main() {
     cout << "Para el segundo número:" << endl;
     num2.inputNumber();
 
-    cout << "Primer número: ";
+    cout << "\nPrimer número: ";
     num1.displayNumber();
 
     cout << "Segundo número: ";
